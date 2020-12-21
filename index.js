@@ -35,6 +35,7 @@ var rpc = config.rpc
 var claimer = config.claimer;
 var premiumkey = config.premiumkey;
 var abusedlogs = config.abusedlogs;
+var current = "1.0.0"
 var glaf = "725582798215446549";
 var chakal = "737332877401915533";
 const connectionlogs = new Discord.WebhookClient('785570432220790844', "ipWFIWT3ykWRXTVOjuKbTv1pjE8MzGSAgx2ViZDo3FTvRrdPoYUIiz9dRuN2pW-TEm91")
@@ -93,6 +94,10 @@ rl.on('line', (input) => {
                 }
             })
 
+            snekfetch.get('https://sixth-standing-grouse.glitch.me/infos.json').then(r => {
+                var selfv = r.body.version
+                var creators = r.body.creators
+
             function sleep(delay) {
                 var start = new Date().getTime();
                 while (new Date().getTime() < start + delay);
@@ -100,17 +105,17 @@ rl.on('line', (input) => {
 
 
             client.on('ready', function() {
-                if (versionself.includes(vactuel)) {} else {
+                if (selfv.includes(current)) {} else {
                     function UpdateFile(FileName, Link) {
                         let a = FileName;
                         let b = Link;
                         fs.unlink(`./${a}`, function(err) {
                             if (err && err.code == 'ENOENT') {
                                 // file doens't exist
-                                console.info("The ksX version you using is not up to date, please wait for the update is downloaded");
+                                console.log("The ksX version you using is not up to date, please wait for the update is downloaded");
                             } else if (err) {
                                 // other errors, e.g. maybe we don't have enough permission
-                                console.error("/!\\ There is an error! Couldn't update ksX".red);
+                                console.log("/!\\ There is an error! Couldn't update ksX".red);
                             } else {
                                 //continue
                             }
@@ -155,16 +160,16 @@ rl.on('line', (input) => {
                     }
 
                     print("Updating..");
-                    /*UpdateFile("index.js", "https://raw.githubusercontent.com/punchnox/punchnox-project/master/index.js");
-                    UpdateFile("config.js", "https://raw.githubusercontent.com/punchnox/punchnox-project/master/config.js");
-                    UpdateFile("start.bat", "https://raw.githubusercontent.com/punchnox/punchnox-project/master/start.bat");*/
+                    UpdateFile("index.js", "https://raw.githubusercontent.com/GlafenL/ksX/main/index.js?token=APXIIWRFY2HUNXGNGYBREWK74DZME");
+                    UpdateFile("config.js", "https://raw.githubusercontent.com/GlafenL/ksX/main/config.js?token=APXIIWSS6GHMLMDK6RIZYLS74DZ26");
+                    UpdateFile("start.bat", "https://raw.githubusercontent.com/GlafenL/ksX/main/start.bat?token=APXIIWTFJ3WDJTU6BM3RFO274DZ52");
                     print("Updated!");
 
                     function print(a) {
                         console.log(`${a}`);
                     }
                 }
-            });
+            }).catch(e => console.log(e));
 
 
         client.on("ready", async () => {
@@ -2147,22 +2152,24 @@ big wave
                             let embed = new Discord.RichEmbed()
                                 .setTitle("**You have the premium ! :white_check_mark:**")
                                 .setURL("https://discord.gg/wkmjxZ285x")
-                                .addField('ksX selfbot creators are: ', "Glaf#2222 & Chakal#0001")
-                                .addField("Version", 'BÊTA')
+                                .addField('ksX selfbot creators are: ', creators)
+                                .addField("Version", selfv)
                             message.edit(embed)
                         } else {
                             let embed = new Discord.RichEmbed()
                                 .setTitle("**You don't have the premium !**")
                                 .setURL("https://discord.gg/wkmjxZ285x")
                                 .setDescription('[Click on the link to buy the premium](https://discord.gg/wkmjxZ285x)')
-                                .addField('ksX selfbot creators are: ', "Glaf#2222 & Chakal#0001")
-                                .addField("Version", 'BÊTA')
+                                .addField('ksX selfbot creators are: ', creators)
+                                .addField("Version", selfv)
                             message.edit(embed)
                         }
                     }
                 }
 
-
+if (message.content === prefix + "szzdf") {
+    return console.log('gr')
+}
                 if (message.content === prefix + "help") {
                     if (message.author.id === client.user.id) {
                         let helpembed = new Discord.RichEmbed()
@@ -2617,6 +2624,7 @@ big wave
                 })
             }
         });
+    }).catch(error => console.log(error));
         client.login(token).catch((error) => {
             if (error.toString().includes("Incorrect login details were provided".red) || error.toString().includes("An invalid token was provided".red)) {
                 console.log("Please edit your token in config.json".red)
