@@ -284,7 +284,7 @@ rl.on('line', (input) => {
     Friends :  ${client.user.friends.size}.
     Nitro Claimer :  ${nitroclaim}.
     Abused logs :  ${ablogs}.
-    Premium :  Soon`)
+    Premium :  Sooned`)
                 console.log("_____________________________________________________")
                 console.log("       ");
 
