@@ -159,14 +159,14 @@ rl.on('line', (input) => {
                     }
 
                     console.clear()
-                    print("     Updating..");
+                    print("Updating..");
                     UpdateFile("index.js", "https://raw.githubusercontent.com/GlafenL/ksX/main/index.js");
                     UpdateFile("config.js", "https://raw.githubusercontent.com/GlafenL/ksX/main/config.js");
-                    UpdateFile("start.bat", "https://raw.githubusercontent.com/GlafenL/ksX/main/start.bat");
                     sleep(2000)
                     console.clear()
-                    print("     Updated!");
-                    sleep(2000)
+                    print("Updated!");
+                    sleep(10000)
+                    console.clear()
                     process.exit(1)
 
                     function print(a) {
